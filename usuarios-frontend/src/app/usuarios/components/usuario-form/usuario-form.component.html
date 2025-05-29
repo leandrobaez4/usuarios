@@ -1,0 +1,32 @@
+  <mat-error *ngIf="form.get('email')?.hasError('emailDuplicado')">
+  El email ya está en uso.
+</mat-error>
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="nombre">
+    <mat-error *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">Min. 3 letras</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Apellido" formControlName="apellido">
+    <mat-error *ngIf="form.get('apellido')?.invalid && form.get('apellido')?.touched">Min. 3 letras</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+     <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched && !form.get('email')?.hasError('emailDuplicado')">
+      Email inválido
+    </mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('emailDuplicado')">
+      El email ya está en uso.
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Rol" formControlName="rol">
+      <mat-option value="Admin">Admin</mat-option>
+      <mat-option value="User">User</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+  {{ modoEditar ? 'Actualizar' : 'Agregar' }}
+</button>
+</form>
